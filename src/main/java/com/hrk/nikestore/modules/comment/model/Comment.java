@@ -2,6 +2,7 @@ package com.hrk.nikestore.modules.comment.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hrk.nikestore.modules.product.model.Product;
+import com.hrk.nikestore.modules.user.model.User;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,13 +22,13 @@ public class Comment {
     private Product product;
 
     @ManyToOne
-    private Author author;
+    private User author;
 
 
     public Comment() {
     }
 
-    public Comment(Long id, String title, String content, String date, Product product, Author author) {
+    public Comment(Long id, String title, String content, String date, Product product, User author) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -76,11 +77,11 @@ public class Comment {
         this.product = product;
     }
 
-    public Author getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 }
