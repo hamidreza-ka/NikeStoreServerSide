@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableResourceServer
+@EnableAuthorizationServer
 public class NikestoreApplication {
 
     public static void main(String[] args) {
@@ -19,7 +23,10 @@ public class NikestoreApplication {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository userRepository) throws Exception {
-        builder.userDetailsService(s -> new CustomUserDetails(userRepository.findByEmail(s)));
+        builder.userDetailsService(s -> {
+         User user = userRepository.findByEmail(s);
+         return user;
+        });
     }
 
 }
