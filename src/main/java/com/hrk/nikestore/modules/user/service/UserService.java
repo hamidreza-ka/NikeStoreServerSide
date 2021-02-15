@@ -13,6 +13,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -26,5 +27,9 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             throw new UsernameNotFoundException("User Not Found Dada");
         }
+    }
+
+    public void registerUser(User user) {
+        userRepository.save(user);
     }
 }

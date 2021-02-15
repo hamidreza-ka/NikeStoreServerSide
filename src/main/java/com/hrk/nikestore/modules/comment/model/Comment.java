@@ -5,6 +5,7 @@ import com.hrk.nikestore.modules.product.model.Product;
 import com.hrk.nikestore.modules.user.model.User;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 public class Comment {
 
     @Id
+    @GeneratedValue
     private Long id;
     private String title;
     private String content;

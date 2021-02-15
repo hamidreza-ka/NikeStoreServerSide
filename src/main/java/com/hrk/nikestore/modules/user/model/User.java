@@ -14,8 +14,10 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue
     @JsonIgnore
     private Long id;
+
     private String email;
 
     @JsonIgnore

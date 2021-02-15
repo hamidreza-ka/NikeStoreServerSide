@@ -1,6 +1,7 @@
 package com.hrk.nikestore.modules.cart.model;
 
 public class CartItemCount {
+
     private int count;
 
     public CartItemCount() {
