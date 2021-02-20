@@ -50,8 +50,8 @@ public class CartService {
         return newCartItem;
     }
 
-    public Cart getCartItems() {
-        Cart cart = cartRepository.getCartByUser_Id(1L);
+    public Cart getCartItems(Long userId) {
+        Cart cart = cartRepository.getCartByUser_Id(userId);
         List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cart.getId());
         Long totalPrice = 0L;
         Long payablePrice = 0L;

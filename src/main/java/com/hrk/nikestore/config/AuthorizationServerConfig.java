@@ -24,7 +24,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 //    private final JwtTokenStore jwtTokenStore;
 //    private final JwtAccessTokenConverter accessTokenConverter;
-    private final String PRIVATE_KEY = "secret";
+    public static final String PRIVATE_KEY = "secret";
 
 
     @Autowired
@@ -44,11 +44,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.inMemory().withClient("my-trusted-client")
                 .authorizedGrantTypes("client_credentials", "password", "refresh_token")
                 .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-                .scopes("read", "write", "trust")
+                .scopes("read","write","trust")
                 .resourceIds("oauth2-resource")
                 .accessTokenValiditySeconds(50000)
                 .refreshTokenValiditySeconds(100000)
-                .secret("secret");
+                .secret(PRIVATE_KEY);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public JwtAccessTokenConverter tokenEnhancer() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new CustomTokenEnhancer();
         converter.setSigningKey(PRIVATE_KEY);
         return converter;
     }
