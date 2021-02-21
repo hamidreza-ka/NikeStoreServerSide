@@ -1,4 +1,4 @@
-package com.hrk.nikestore.config;
+package com.hrk.nikestore.jwt;
 
 import com.hrk.nikestore.modules.user.model.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
