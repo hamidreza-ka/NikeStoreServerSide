@@ -1,5 +1,6 @@
 package com.hrk.nikestore.modules.cart.controller;
 
+import com.hrk.nikestore.jwt.AccessTokenMapper;
 import com.hrk.nikestore.modules.cart.model.Cart;
 import com.hrk.nikestore.modules.cart.model.CartItem;
 import com.hrk.nikestore.modules.cart.model.request.AddCartItemRequest;
@@ -10,6 +11,10 @@ import com.hrk.nikestore.modules.user.model.User;
 import com.hrk.nikestore.modules.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,8 +42,8 @@ public class CartController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Cart getCartItems(HttpServletRequest request) {
-        User user = (User) userService.loadUserByUsername(request.getAttribute("user_name").toString());
+    public Cart getCartItems(OAuth2Authentication auth2Authentication) {
+        User user = (User) userService.loadUserByUsername(auth2Authentication.getPrincipal().toString());
         return cartService.getCartItems(user.getId());
     }
 

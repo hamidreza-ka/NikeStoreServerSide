@@ -4,12 +4,13 @@ import com.hrk.nikestore.modules.user.model.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CustomTokenEnhancer extends JwtAccessTokenConverter {
+public class CustomTokenEnhancer extends JwtAccessTokenConverter implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
