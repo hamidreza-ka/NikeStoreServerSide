@@ -1,7 +1,6 @@
 package com.hrk.nikestore.modules.cart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.SerializedName;
 import com.hrk.nikestore.modules.product.model.Product;
 import javax.persistence.*;
 
@@ -12,7 +11,7 @@ public class CartItem {
     @GeneratedValue
     private long cart_item_id;
 
-    @OneToOne
+    @OneToOne()
     private Product product;
 
     private int count;

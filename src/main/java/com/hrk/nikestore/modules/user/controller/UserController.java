@@ -2,6 +2,7 @@ package com.hrk.nikestore.modules.user.controller;
 
 import com.hrk.nikestore.modules.cart.service.CartService;
 import com.hrk.nikestore.modules.user.model.User;
+import com.hrk.nikestore.modules.user.model.UserRequest;
 import com.hrk.nikestore.modules.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void registerUser(@RequestBody User user){
+    public void registerUser(@RequestBody UserRequest request){
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setName(request.getName());
         userService.registerUser(user);
         cartService.registerCart(user);
     }

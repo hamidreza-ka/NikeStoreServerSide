@@ -34,8 +34,8 @@ public class CartService {
         cartRepository.save(new Cart(null, user, 0, 0, 0));
     }
 
-    public CartItem addToCart(Long productId) {
-        Cart cart = cartRepository.getCartByUser_Id(1L);
+    public CartItem addToCart(Long userId, Long productId) {
+        Cart cart = cartRepository.getCartByUser_Id(userId);
         List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cart.getId());
         for (CartItem cartItem : cartItems) {
             if (cartItem.getProduct().getId() == productId) {
@@ -68,9 +68,9 @@ public class CartService {
         return cart;
     }
 
-    public ResponseEntity removeCartItem(Long cartItemId) {
+    public ResponseEntity removeCartItem(Long userId, Long cartItemId) {
         try {
-            List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cartRepository.getCartByUser_Id(1L).getId());
+            List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cartRepository.getCartByUser_Id(userId).getId());
             for (CartItem cartItem : cartItems) {
                 if (cartItem.getCart_item_id() == cartItemId) {
                     cartItemRepository.deleteById(cartItemId);
@@ -87,9 +87,9 @@ public class CartService {
         return new ResponseEntity(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    public ResponseEntity changeCountCartItem(Long cartItemId, int count) {
+    public ResponseEntity changeCountCartItem(Long userId, Long cartItemId, int count) {
         try {
-            List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cartRepository.getCartByUser_Id(1L).getId());
+            List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cartRepository.getCartByUser_Id(userId).getId());
             for (CartItem cartItem : cartItems) {
                 if (cartItem.getCart_item_id() == cartItemId) {
                     cartItem.setCount(count);
@@ -106,7 +106,7 @@ public class CartService {
         return new ResponseEntity(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    public ResponseEntity getCountOfCartItems(){
+    public ResponseEntity getCountOfCartItems(Long userId){
         int count = 0;
 
         List<CartItem> cartItems = cartItemRepository.getCartItemsByCart_Id(cartRepository.getCartByUser_Id(1L).getId());

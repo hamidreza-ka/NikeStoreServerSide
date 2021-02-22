@@ -22,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
 
-
     @Autowired
     public SecurityConfig(UserService userService) {
         this.userService = userService;
@@ -39,8 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/product/**").permitAll()
                 .antMatchers("/banner/**").permitAll()
+                .antMatchers("/comment/list").permitAll()
+                .antMatchers("comment/add").authenticated()
                 .antMatchers("/cart/**").authenticated()
-        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 
 
     }
@@ -57,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 }

@@ -38,6 +38,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/product/**").permitAll()
                 .antMatchers("/banner/**").permitAll()
+                .antMatchers("/comment/list").permitAll()
+                .antMatchers("comment/add").authenticated()
                 .antMatchers("/cart/**").authenticated();
     }
 
